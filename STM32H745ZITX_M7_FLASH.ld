@@ -51,11 +51,20 @@ MEMORY
   RAM_D2 (xrw)   : ORIGIN = 0x30000000, LENGTH = 288K
   RAM_D3 (xrw)   : ORIGIN = 0x38000000, LENGTH = 64K
   ITCMRAM (xrw)  : ORIGIN = 0x00000000, LENGTH = 64K
+  FLASH_M4 (rx)  : ORIGIN = 0x08100000, LENGTH = 1024K
 }
 
 /* Sections */
 SECTIONS
 {
+  /* The startup code into "FLASH_M4" Rom type memory for M4 */
+  .isr_vectorM4 :
+  {
+    . = ALIGN(4);
+    KEEP(*(.isr_vectorM4)) /* Startup code */
+    . = ALIGN(4);
+  } >FLASH_M4
+
   /* The startup code into "FLASH" Rom type memory */
   .isr_vector :
   {
