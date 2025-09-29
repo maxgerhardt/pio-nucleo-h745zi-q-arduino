@@ -9,7 +9,8 @@
   .weak  Reset_HandlerM4
   .type  Reset_HandlerM4, %function
 Reset_HandlerM4:
-    b .
+    WFI
+    b Reset_HandlerM4
 .size  Reset_HandlerM4, .-Reset_HandlerM4
 
 /******************************************************************************
@@ -25,7 +26,7 @@ Reset_HandlerM4:
 
 g_pfnVectorsM4:
   .word  0x10048000
-  .word  Reset_Handler
+  .word  Reset_HandlerM4
 
   .size  g_pfnVectorsM4, .-g_pfnVectorsM4
 
